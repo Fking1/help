@@ -6,13 +6,13 @@ import java.util.List;
 import java.util.Map;
 
 public interface TaskService {
-    List<Map> choiceList();
+//    List<Map> choiceList();
     
     List<Map> choiceListByOpenid(String openid);
     
-    Boolean create(Map<String,String> taskInfo);
+//    Boolean create(Map<String,String> taskInfo);
     
-    String choiceLastPrimaryKey();
+//    String choiceLastPrimaryKey();
     
-    Boolean changeByPrimaryKey(Task task);
+//    Boolean changeByPrimaryKey(Task task);
 }

@@ -1,23 +1,29 @@
 package club.fangqcloud.pojo;
 
+import java.util.List;
+
 public class Person {
-    private String openid;
+    private String openid; //openid
 
-    private String id;
+    private String id; //身份证号
 
-    private String name;
+    private String name; //姓名
 
-    private String sex;
+    private String sex; //性别
 
-    private String code;
+    private String code; //邮编
 
-    private String address;
+    private String address; //地址
 
-    private String telephone;
+    private String telephone; //电话号码
 
-    private String healthState;
+    private String healthState; //健康状况
 
-    private String avatarUrl;
+    private String avatarUrl; //头像地址
+    
+    private String personType; //人员类型
+    
+    private List<Task> taskList;//任务列表
 
     public String getOpenid() {
         return openid;
@@ -89,5 +95,21 @@ public class Person {
 
     public void setAvatarUrl(String avatarUrl) {
         this.avatarUrl = avatarUrl;
+    }
+    
+    public String getPersonType() {
+        return personType;
+    }
+    
+    public void setPersonType(String personType) {
+        this.personType = personType;
+    }
+    
+    public List<Task> getTaskList() {
+        return taskList;
+    }
+    
+    public void setTaskList(List<Task> taskList) {
+        this.taskList = taskList;
     }
 }

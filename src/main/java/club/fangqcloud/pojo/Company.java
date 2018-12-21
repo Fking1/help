@@ -1,19 +1,19 @@
 package club.fangqcloud.pojo;
 
 public class Company {
-    private String companyId;
+    private String companyId; //公司号
 
-    private String companyName;
+    private String companyName; //公司名
 
-    private String contactName;
+    private String contactName; //负责人
 
-    private String telephone;
+    private String telephone; //电话号码
 
-    private String companyAddress;
+    private String companyAddress; //公司地址
 
-    private String logo;
+    private String logo; //公司logo
 
-    private String companyType;
+    private String companyType; //公司类型 保险公司、志愿机构
 
     public String getCompanyId() {
         return companyId;

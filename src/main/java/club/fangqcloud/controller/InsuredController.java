@@ -1,6 +1,5 @@
 package club.fangqcloud.controller;
 
-import club.fangqcloud.mapper.InsuredMapper;
 import club.fangqcloud.pojo.Insured;
 import club.fangqcloud.service.InsuredService;
 import org.springframework.beans.factory.annotation.Autowired;

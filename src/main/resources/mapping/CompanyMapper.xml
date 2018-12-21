@@ -41,44 +41,4 @@
     select companyId, companyName, contactName, telephone, companyAddress, logo, companyType
     from company
   </select>
-  <resultMap id="BaseResultMap" type="club.fangqcloud.pojo.Company">
-    <id column="companyId" jdbcType="VARCHAR" property="companyId" />
-    <result column="companyName" jdbcType="VARCHAR" property="companyName" />
-    <result column="contactName" jdbcType="VARCHAR" property="contactName" />
-    <result column="telephone" jdbcType="VARCHAR" property="telephone" />
-    <result column="companyAddress" jdbcType="VARCHAR" property="companyAddress" />
-    <result column="logo" jdbcType="VARCHAR" property="logo" />
-    <result column="companyType" jdbcType="VARCHAR" property="companyType" />
-  </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    delete from company
-    where companyId = #{companyId,jdbcType=VARCHAR}
-  </delete>
-  <insert id="insert" parameterType="club.fangqcloud.pojo.Company">
-    insert into company (companyId, companyName, contactName, 
-      telephone, companyAddress, logo, 
-      companyType)
-    values (#{companyId,jdbcType=VARCHAR}, #{companyName,jdbcType=VARCHAR}, #{contactName,jdbcType=VARCHAR}, 
-      #{telephone,jdbcType=VARCHAR}, #{companyAddress,jdbcType=VARCHAR}, #{logo,jdbcType=VARCHAR}, 
-      #{companyType,jdbcType=VARCHAR})
-  </insert>
-  <update id="updateByPrimaryKey" parameterType="club.fangqcloud.pojo.Company">
-    update company
-    set companyName = #{companyName,jdbcType=VARCHAR},
-      contactName = #{contactName,jdbcType=VARCHAR},
-      telephone = #{telephone,jdbcType=VARCHAR},
-      companyAddress = #{companyAddress,jdbcType=VARCHAR},
-      logo = #{logo,jdbcType=VARCHAR},
-      companyType = #{companyType,jdbcType=VARCHAR}
-    where companyId = #{companyId,jdbcType=VARCHAR}
-  </update>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select companyId, companyName, contactName, telephone, companyAddress, logo, companyType
-    from company
-    where companyId = #{companyId,jdbcType=VARCHAR}
-  </select>
-  <select id="selectAll" resultMap="BaseResultMap">
-    select companyId, companyName, contactName, telephone, companyAddress, logo, companyType
-    from company
-  </select>
 </mapper>

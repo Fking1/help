@@ -14,6 +14,7 @@
     <result column="name1" jdbcType="VARCHAR" property="name1" />
     <result column="name2" jdbcType="VARCHAR" property="name2" />
     <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="continueDate" jdbcType="DATE" property="continueDate" />
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from policy
@@ -57,63 +58,7 @@
     paymentType, policyLevel, name1, name2, description
     from policy
   </select>
-  <resultMap id="BaseResultMap" type="club.fangqcloud.pojo.Policy">
-    <id column="policyId" jdbcType="VARCHAR" property="policyId" />
-    <result column="companyId" jdbcType="VARCHAR" property="companyId" />
-    <result column="openid1" jdbcType="VARCHAR" property="openid1" />
-    <result column="openid2" jdbcType="VARCHAR" property="openid2" />
-    <result column="effectiveDate" jdbcType="DATE" property="effectiveDate" />
-    <result column="policyState" jdbcType="VARCHAR" property="policyState" />
-    <result column="policyType" jdbcType="VARCHAR" property="policyType" />
-    <result column="paymentType" jdbcType="VARCHAR" property="paymentType" />
-    <result column="policyLevel" jdbcType="INTEGER" property="policyLevel" />
-    <result column="name1" jdbcType="VARCHAR" property="name1" />
-    <result column="name2" jdbcType="VARCHAR" property="name2" />
-    <result column="description" jdbcType="VARCHAR" property="description" />
-    <result column="continueDate" jdbcType="DATE" property="continueDate" />
-  </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    delete from policy
-    where policyId = #{policyId,jdbcType=VARCHAR}
-  </delete>
-  <insert id="insert" parameterType="club.fangqcloud.pojo.Policy">
-    insert into policy (policyId, companyId, openid1, 
-      openid2, effectiveDate, policyState, 
-      policyType, paymentType, policyLevel, 
-      name1, name2, description,continueDate
-      )
-    values (#{policyId,jdbcType=VARCHAR}, #{companyId,jdbcType=VARCHAR}, #{openid1,jdbcType=VARCHAR}, 
-      #{openid2,jdbcType=VARCHAR}, #{effectiveDate,jdbcType=DATE}, #{policyState,jdbcType=VARCHAR}, 
-      #{policyType,jdbcType=VARCHAR}, #{paymentType,jdbcType=VARCHAR}, #{policyLevel,jdbcType=INTEGER}, 
-      #{name1,jdbcType=VARCHAR}, #{name2,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR},#{continueDate,jdbcType=DATE}
-      )
-  </insert>
-  <update id="updateByPrimaryKey" parameterType="club.fangqcloud.pojo.Policy">
-    update policy
-    set companyId = #{companyId,jdbcType=VARCHAR},
-      openid1 = #{openid1,jdbcType=VARCHAR},
-      openid2 = #{openid2,jdbcType=VARCHAR},
-      effectiveDate = #{effectiveDate,jdbcType=DATE},
-      policyState = #{policyState,jdbcType=VARCHAR},
-      policyType = #{policyType,jdbcType=VARCHAR},
-      paymentType = #{paymentType,jdbcType=VARCHAR},
-      policyLevel = #{policyLevel,jdbcType=INTEGER},
-      name1 = #{name1,jdbcType=VARCHAR},
-      name2 = #{name2,jdbcType=VARCHAR},
-      description = #{description,jdbcType=VARCHAR}
-    where policyId = #{policyId,jdbcType=VARCHAR}
-  </update>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select policyId, companyId, openid1, openid2, effectiveDate, policyState, policyType, 
-    paymentType, policyLevel, name1, name2, description
-    from policy
-    where policyId = #{policyId,jdbcType=VARCHAR}
-  </select>
-  <select id="selectAll" resultMap="BaseResultMap">
-    select policyId, companyId, openid1, openid2, effectiveDate, policyState, policyType, 
-    paymentType, policyLevel, name1, name2, description
-    from policy
-  </select>
+
 
   <select id="selectListByOpenid" parameterType="String" resultType="Map">
     SELECT policy.*,companyName,logo,DATE_ADD(policy.effectiveDate,INTERVAL 7 DAY) as keepDate

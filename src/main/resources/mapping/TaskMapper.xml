@@ -12,6 +12,10 @@
     <result column="openid" jdbcType="VARCHAR" property="openid" />
     <result column="openid1" jdbcType="VARCHAR" property="openid1" />
     <result column="openid2" jdbcType="VARCHAR" property="openid2" />
+    <result column="companyId" jdbcType="VARCHAR" property="companyId" />
+    <association column="companyId" property="company" select="club.fangqcloud.mapper.CompanyMapper.selectByPrimaryKey">
+
+    </association>
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from task
@@ -51,61 +55,13 @@
     openid1, openid2
     from task
   </select>
-  <resultMap id="BaseResultMap" type="club.fangqcloud.pojo.Task">
-    <id column="taskId" jdbcType="VARCHAR" property="taskId" />
-    <result column="content" jdbcType="VARCHAR" property="content" />
-    <result column="taskState" jdbcType="VARCHAR" property="taskState" />
-    <result column="description" jdbcType="VARCHAR" property="description" />
-    <result column="comments" jdbcType="VARCHAR" property="comment" />
-    <result column="taskDate" jdbcType="TIMESTAMP" property="taskDate" />
-    <result column="star" jdbcType="INTEGER" property="star" />
-    <result column="openid" jdbcType="VARCHAR" property="openid" />
-    <result column="openid1" jdbcType="VARCHAR" property="openid1" />
-    <result column="openid2" jdbcType="VARCHAR" property="openid2" />
-    <result column="companyId" jdbcType="VARCHAR" property="companyId" />
-    <association column="companyId" property="company" select="club.fangqcloud.mapper.CompanyMapper.selectByPrimaryKey">
-
-    </association>
-  </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    delete from task
-    where taskId = #{taskId,jdbcType=VARCHAR}
-  </delete>
-  <insert id="insert" parameterType="club.fangqcloud.pojo.Task">
-    insert into task (taskId, content, taskState, 
-      description, comments, taskDate,
-      star, openid, openid1, 
-      openid2)
-    values (#{taskId,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{taskState,jdbcType=VARCHAR}, 
-      #{description,jdbcType=VARCHAR}, #{comments,jdbcType=VARCHAR}, #{taskDate,jdbcType=TIMESTAMP},
-      #{star,jdbcType=INTEGER}, #{openid,jdbcType=VARCHAR}, #{openid1,jdbcType=VARCHAR}, 
-      #{openid2,jdbcType=VARCHAR})
-  </insert>
-  <update id="updateByPrimaryKey" parameterType="club.fangqcloud.pojo.Task">
-    update task
-    set taskState = #{taskState,jdbcType=VARCHAR},
-      comments = #{comments,jdbcType=VARCHAR},
-      star = #{star,jdbcType=INTEGER}
-    where taskId = #{taskId,jdbcType=VARCHAR}
-  </update>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select taskId, content, taskState, description, comments, taskDate, star, openid,
-    openid1, openid2
-    from task
-    where taskId = #{taskId,jdbcType=VARCHAR}
-  </select>
-  <select id="selectAll" resultMap="BaseResultMap">
-    select taskId, content, taskState, description, comments, taskDate, star, openid,
-    openid1, openid2
-    from task
-  </select>
-  <select id="selectList" resultType="Map">
-    select taskId,content, taskState, description,taskDate,name,avatarUrl,address
-    from task,insured
-    where task.openid = insured.openid
-  </select>
 
 
+  <!--<select id="selectList" resultType="Map">-->
+    <!--select taskId,content, taskState, description,taskDate,name,avatarUrl,address-->
+    <!--from task,insured-->
+    <!--where task.openid = insured.openid-->
+  <!--</select>-->
   <select id="selectLastPrimaryKey" parameterType="String" resultType="String">
     SELECT taskId FROM task
     WHERE taskId LIKE #{current}
@@ -113,13 +69,12 @@
   </select>
   <select id="selectListByOpenid" parameterType="String" resultType="Map">
     select taskId,content,taskDate,taskState,name,companyId
-    from task,insured
-    where task.openid = insured.openid and task.openid=#{openid}
+    from task,person
+    where task.openid = person.openid and task.openid=#{openid}
   </select>
-
-  <select id="selectCompany" parameterType="String" resultType="Map">
-    select content,comments,star,taskDate,taskState,worker.name,taskId
-    from task,worker
-    where taskState='已评价' and (task.openid = #{openid} or task.openid2 = #{openid})
-  </select>
+  <!--<select id="selectCompany" parameterType="String" resultType="Map">-->
+    <!--select content,comments,star,taskDate,taskState,worker.name,taskId-->
+    <!--from task,worker-->
+    <!--where taskState='已评价' and (task.openid = #{openid} or task.openid2 = #{openid})-->
+  <!--</select>-->
 </mapper>

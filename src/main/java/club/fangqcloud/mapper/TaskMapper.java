@@ -19,7 +19,8 @@ public interface TaskMapper {
     int updateByPrimaryKey(Task record);
     
     
-    List<Map> selectList();
+//    新增接口
+//    List<Map> selectList();
     
     List<Map> selectListByOpenid(String openid);
     

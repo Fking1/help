@@ -15,4 +15,8 @@ public interface PersonMapper {
     List<Person> selectAll();
 
     int updateByPrimaryKey(Person record);
+    
+//    新增接口
+    
+    Person selectById();
 }

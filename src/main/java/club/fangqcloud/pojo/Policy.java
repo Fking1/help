@@ -3,29 +3,31 @@ package club.fangqcloud.pojo;
 import java.util.Date;
 
 public class Policy {
-    private String policyId;
+    private String policyId; //保单号
 
-    private String companyId;
+    private String companyId; //公司号
 
-    private String openid1;
+    private String openid1; //投保人openid
 
-    private String openid2;
+    private String openid2; //被保人openid
 
-    private Date effectiveDate;
+    private String policyState; //保单状态
 
-    private String policyState;
+    private String policyType; //保单类型  独立、分离
 
-    private String policyType;
+    private String paymentType;//付费方式 月缴，年缴
 
-    private String paymentType;
+    private Integer policyLevel;//保险档次
 
-    private Integer policyLevel;
+    private String name1;//投保人姓名
 
-    private String name1;
+    private String name2;//被保人姓名
 
-    private String name2;
-
-    private String description;
+    private String description; //保单申明
+    
+    private Date effectiveDate; //生效日期
+    
+    private Date continueDate; //续费日期
 
     public String getPolicyId() {
         return policyId;
@@ -57,14 +59,6 @@ public class Policy {
 
     public void setOpenid2(String openid2) {
         this.openid2 = openid2;
-    }
-
-    public Date getEffectiveDate() {
-        return effectiveDate;
-    }
-
-    public void setEffectiveDate(Date effectiveDate) {
-        this.effectiveDate = effectiveDate;
     }
 
     public String getPolicyState() {
@@ -121,5 +115,21 @@ public class Policy {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+    
+    public Date getEffectiveDate() {
+        return effectiveDate;
+    }
+    
+    public void setEffectiveDate(Date effectiveDate) {
+        this.effectiveDate = effectiveDate;
+    }
+    
+    public Date getContinueDate() {
+        return continueDate;
+    }
+    
+    public void setContinueDate(Date continueDate) {
+        this.continueDate = continueDate;
     }
 }

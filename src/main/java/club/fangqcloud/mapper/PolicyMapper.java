@@ -4,6 +4,8 @@ import club.fangqcloud.pojo.Policy;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
+
 @Repository
 public interface PolicyMapper {
     int deleteByPrimaryKey(String policyId);
@@ -15,4 +17,7 @@ public interface PolicyMapper {
     List<Policy> selectAll();
 
     int updateByPrimaryKey(Policy record);
+    
+//    新增接口
+    List<Map> selectListByOpenid(String openid);
 }

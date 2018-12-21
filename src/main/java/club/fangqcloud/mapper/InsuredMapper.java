@@ -17,5 +17,7 @@ public interface InsuredMapper {
 
     int updateByPrimaryKey(Insured record);
     
+    //新增接口
+    
     String selectOpenidById(String id);
 }
