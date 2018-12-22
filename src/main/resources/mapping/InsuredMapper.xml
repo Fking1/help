@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="club.fangqcloud.mapper.InsuredMapper">
-  <resultMap id="BaseResultMap" type="club.fangqcloud.pojo.Insured">
-    <id column="openid" jdbcType="VARCHAR" property="openid" />
-    <result column="id" jdbcType="VARCHAR" property="id" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="sex" jdbcType="VARCHAR" property="sex" />
-    <result column="code" jdbcType="VARCHAR" property="code" />
-    <result column="telephone" jdbcType="VARCHAR" property="telephone" />
-    <result column="address" jdbcType="VARCHAR" property="address" />
-    <result column="healthState" jdbcType="VARCHAR" property="healthState" />
-    <result column="avatarUrl" jdbcType="VARCHAR" property="avatarUrl" />
-    <result column="personType" jdbcType="VARCHAR" property="personType" />
+  <!--<resultMap id="BaseResultMap" type="club.fangqcloud.pojo.Insured">-->
+    <!--<id column="openid" jdbcType="VARCHAR" property="openid" />-->
+    <!--<result column="id" jdbcType="VARCHAR" property="id" />-->
+    <!--<result column="name" jdbcType="VARCHAR" property="name" />-->
+    <!--<result column="sex" jdbcType="VARCHAR" property="sex" />-->
+    <!--<result column="code" jdbcType="VARCHAR" property="code" />-->
+    <!--<result column="telephone" jdbcType="VARCHAR" property="telephone" />-->
+    <!--<result column="address" jdbcType="VARCHAR" property="address" />-->
+    <!--<result column="healthState" jdbcType="VARCHAR" property="healthState" />-->
+    <!--<result column="avatarUrl" jdbcType="VARCHAR" property="avatarUrl" />-->
+    <!--<result column="personType" jdbcType="VARCHAR" property="personType" />-->
 
-    <collection column="openid" property="policyList" select="club.fangqcloud.mapper.PolicyMapper.selectListByOpenid"></collection>
-  </resultMap>
+    <!--<collection column="openid" property="policyList" select="club.fangqcloud.mapper.PolicyMapper.selectListByOpenid"></collection>-->
+  <!--</resultMap>-->
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from insured
     where openid = #{openid,jdbcType=VARCHAR}
@@ -42,6 +42,7 @@
       personType = #{personType,jdbcType=VARCHAR}
     where openid = #{openid,jdbcType=VARCHAR}
   </update>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select openid, id, "name", sex, code, telephone, address, healthState, avatarUrl, 
     personType

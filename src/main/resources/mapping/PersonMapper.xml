@@ -13,18 +13,34 @@
     <result column="avatarUrl" jdbcType="VARCHAR" property="avatarUrl" />
     <result column="personType" jdbcType="VARCHAR" property="personType" />
     <collection property="taskList" column="openid" select="club.fangqcloud.mapper.TaskMapper.selectListByOpenid">
-
+    </collection>
+    <discriminator javaType="String" column="personType">
+      <case value="投保人" resultMap="insuredResultMap"></case>
+      <case value="被保人" resultMap="insuredResultMap"></case>
+      <case value="志愿者" resultMap="workerResultMap"></case>
+      <case value="护工" resultMap="workerResultMap"></case>
+    </discriminator>
+  </resultMap>
+  
+  <resultMap id="insuredResultMap" type="club.fangqcloud.pojo.Insured" extends="BaseResultMap">
+    <collection property="policyList" column="openid" select="club.fangqcloud.mapper.PolicyMapper.selectListByOpenid">
     </collection>
   </resultMap>
+
+  <resultMap id="workerResultMap" type="club.fangqcloud.pojo.Worker" extends="BaseResultMap">
+    <result column="serviceState" jdbcType="VARCHAR" property="serviceState" />
+    <result column="monthServiceHours" jdbcType="INTEGER" property="monthServiceHours" />
+    <result column="wholeServiceHours" jdbcType="INTEGER" property="wholeServiceHours" />
+  </resultMap>
+
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from person
     where openid = #{openid,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="club.fangqcloud.pojo.Person">
-    insert into person (openid, id, "name", 
-      sex, code, address, 
-      telephone, healthState, avatarUrl,personType
-      )
+    insert into person
+    (openid, id, "name", sex, code, address, telephone, healthState, avatarUrl,personType)
     values (
       #{openid,jdbcType=VARCHAR},
       #{id,jdbcType=VARCHAR},
@@ -36,7 +52,7 @@
       #{healthState,jdbcType=VARCHAR},
       #{avatarUrl,jdbcType=VARCHAR},
       #{personType,jdbcType=VARCHAR}
-      )
+    )
   </insert>
   <update id="updateByPrimaryKey" parameterType="club.fangqcloud.pojo.Person">
     update person
@@ -51,6 +67,7 @@
       personType = #{personType,jdbcType=VARCHAR}
     where openid = #{openid,jdbcType=VARCHAR}
   </update>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select openid, id, "name", sex, code, address, telephone, healthState, avatarUrl,personType
     from person

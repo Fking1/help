@@ -21,4 +21,9 @@ public class PersonController {
         return personService.choiceByPrimaryKey(openid);
     }
     
+    @RequestMapping("/addPerson.do")
+    @ResponseBody
+    public Boolean addPerson(Person person){
+        return personService.create(person);
+    }
 }

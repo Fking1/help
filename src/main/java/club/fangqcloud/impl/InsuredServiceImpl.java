@@ -5,8 +5,10 @@ import club.fangqcloud.pojo.Insured;
 import club.fangqcloud.service.InsuredService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
 public class InsuredServiceImpl implements InsuredService {
     
     @Autowired

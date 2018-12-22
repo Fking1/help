@@ -56,12 +56,13 @@
     from task
   </select>
 
+  <!--新增接口-->
 
-  <!--<select id="selectList" resultType="Map">-->
-    <!--select taskId,content, taskState, description,taskDate,name,avatarUrl,address-->
-    <!--from task,insured-->
-    <!--where task.openid = insured.openid-->
-  <!--</select>-->
+  <select id="selectList" resultType="Map">
+    select taskId,content, taskState, description,taskDate,name,avatarUrl,address
+    from task,insured
+    where task.openid = insured.openid
+  </select>
   <select id="selectLastPrimaryKey" parameterType="String" resultType="String">
     SELECT taskId FROM task
     WHERE taskId LIKE #{current}

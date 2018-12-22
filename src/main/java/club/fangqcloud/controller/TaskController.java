@@ -18,11 +18,11 @@ public class TaskController {
     @Autowired
     private TaskService taskService;
     
-//    @RequestMapping("/getTaskList.do")
-//    @ResponseBody
-//    public List<Map> getTaskList(){
-//        return taskService.choiceList();
-//    }
+    @RequestMapping("/getTaskList.do")
+    @ResponseBody
+    public List<Map> getTaskList(){
+        return taskService.choiceList();
+    }
     
     @RequestMapping("/getTaskListByOpenid.do")
     @ResponseBody
@@ -30,11 +30,11 @@ public class TaskController {
         return taskService.choiceListByOpenid(openid);
     }
     
-//    @RequestMapping("/addTask.do")
-//    @ResponseBody
-//    public Boolean addTask(@RequestParam Map<String,String> taskInfo){
-//        return taskService.create(taskInfo);
-//    }
+    @RequestMapping("/addTask.do")
+    @ResponseBody
+    public Boolean addTask(@RequestParam Map<String,String> taskInfo){
+        return taskService.create(taskInfo);
+    }
     
 //    @RequestMapping("/alterTask.do")
 //    @ResponseBody

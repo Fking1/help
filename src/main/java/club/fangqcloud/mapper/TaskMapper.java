@@ -20,7 +20,7 @@ public interface TaskMapper {
     
     
 //    新增接口
-//    List<Map> selectList();
+    List<Map> selectList();
     
     List<Map> selectListByOpenid(String openid);
     

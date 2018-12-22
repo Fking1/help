@@ -16,4 +16,12 @@ public class PersonServiceImpl implements PersonService {
     public Person choiceByPrimaryKey(String openid) {
         return personMapper.selectByPrimaryKey(openid);
     }
+    
+    @Override
+    public Boolean create(Person person) {
+        if(personMapper.insert(person)>0)
+            return true;
+        else
+            return false;
+    }
 }
