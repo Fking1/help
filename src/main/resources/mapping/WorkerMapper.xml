@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="club.fangqcloud.mapper.WorkerMapper">
-  <!--<resultMap id="BaseResultMap" type="club.fangqcloud.pojo.Worker">-->
-    <!--<id column="openid" jdbcType="VARCHAR" property="openid" />-->
-    <!--<result column="id" jdbcType="VARCHAR" property="id" />-->
-    <!--<result column="name" jdbcType="VARCHAR" property="name" />-->
-    <!--<result column="sex" jdbcType="VARCHAR" property="sex" />-->
-    <!--<result column="code" jdbcType="VARCHAR" property="code" />-->
-    <!--<result column="telephone" jdbcType="VARCHAR" property="telephone" />-->
-    <!--<result column="address" jdbcType="VARCHAR" property="address" />-->
-    <!--<result column="healthState" jdbcType="VARCHAR" property="healthState" />-->
-    <!--<result column="avatarUrl" jdbcType="VARCHAR" property="avatarUrl" />-->
-    <!--<result column="personType" jdbcType="VARCHAR" property="personType" />-->
-    <!--<result column="serviceState" jdbcType="VARCHAR" property="serviceState" />-->
-    <!--<result column="monthServiceHours" jdbcType="INTEGER" property="monthServiceHours" />-->
-    <!--<result column="wholeServiceHours" jdbcType="INTEGER" property="wholeServiceHours" />-->
-  <!--</resultMap>-->
+  <resultMap id="BaseResultMap" type="club.fangqcloud.pojo.Worker">
+    <id column="openid" jdbcType="VARCHAR" property="openid" />
+    <result column="id" jdbcType="VARCHAR" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="sex" jdbcType="VARCHAR" property="sex" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
+    <result column="telephone" jdbcType="VARCHAR" property="telephone" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="healthState" jdbcType="VARCHAR" property="healthState" />
+    <result column="avatarUrl" jdbcType="VARCHAR" property="avatarUrl" />
+    <result column="personType" jdbcType="VARCHAR" property="personType" />
+    <result column="serviceState" jdbcType="VARCHAR" property="serviceState" />
+    <result column="monthServiceHours" jdbcType="INTEGER" property="monthServiceHours" />
+    <result column="wholeServiceHours" jdbcType="INTEGER" property="wholeServiceHours" />
+  </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from worker
     where openid = #{openid,jdbcType=VARCHAR}
