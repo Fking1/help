@@ -36,9 +36,15 @@ public class TaskController {
         return taskService.create(taskInfo);
     }
     
-//    @RequestMapping("/alterTask.do")
-//    @ResponseBody
-//    public Boolean alterTask(Task task){
-//        return taskService.changeByPrimaryKey(task);
-//    }
+    @RequestMapping("/changeTaskState.do")
+    @ResponseBody
+    public Boolean changeTaskState(Task task){
+        return taskService.changeState(task);
+    }
+    
+    @RequestMapping("/alterTask.do")
+    @ResponseBody
+    public Boolean alterTask(Task task){
+        return taskService.changeByPrimaryKey(task);
+    }
 }

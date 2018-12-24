@@ -112,4 +112,21 @@ public class Person {
     public void setTaskList(List<Task> taskList) {
         this.taskList = taskList;
     }
+    
+    @Override
+    public String toString() {
+        return "Person{" +
+                "openid='" + openid + '\'' +
+                ", id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", sex='" + sex + '\'' +
+                ", code='" + code + '\'' +
+                ", address='" + address + '\'' +
+                ", telephone='" + telephone + '\'' +
+                ", healthState='" + healthState + '\'' +
+                ", avatarUrl='" + avatarUrl + '\'' +
+                ", personType='" + personType + '\'' +
+                ", taskList=" + taskList +
+                '}';
+    }
 }

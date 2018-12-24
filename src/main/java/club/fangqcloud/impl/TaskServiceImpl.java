@@ -36,7 +36,6 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public Boolean create(Map<String,String> taskInfo) {
         Task task = new Task();
-
         PrimaryGenerater primaryGenerater = PrimaryGenerater.getInstance();
         String taskId = primaryGenerater.generaterNextNumber(choiceLastPrimaryKey());
 
@@ -48,6 +47,7 @@ public class TaskServiceImpl implements TaskService {
             task.setDescription(taskInfo.get("description"));
             task.setOpenid(taskInfo.get("openid"));
             task.setTaskState("约单");
+            task.setPolicyId(taskInfo.get("policyId"));
             task.setOpenid2(null);
             task.setComments(null);
             task.setStar(null);
@@ -83,14 +83,24 @@ public class TaskServiceImpl implements TaskService {
         return taskMapper.selectLastPrimaryKey(current);
     }
 
-//    @Override
-//    public Boolean changeByPrimaryKey(Task task) {
-//        task.setTaskState("已评价");
-//        if(taskMapper.updateByPrimaryKey(task)>0){
-//            return true;
-//        }
-//        else{
-//            return false;
-//        }
-//    }
+    @Override
+    public Boolean changeByPrimaryKey(Task task) {
+        task.setTaskState("已评价");
+        if(taskMapper.updateByPrimaryKey(task)>0){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    
+    @Override
+    public Boolean changeState(Task task){
+        if(taskMapper.updateState(task)>0){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
 }

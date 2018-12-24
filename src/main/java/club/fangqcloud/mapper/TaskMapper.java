@@ -27,4 +27,6 @@ public interface TaskMapper {
 //    String selectOpenidById(String id);
     
     String selectLastPrimaryKey(String current);
+    
+    int updateState(Task task);
 }

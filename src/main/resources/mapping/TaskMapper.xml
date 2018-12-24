@@ -12,10 +12,11 @@
     <result column="openid" jdbcType="VARCHAR" property="openid" />
     <result column="openid1" jdbcType="VARCHAR" property="openid1" />
     <result column="openid2" jdbcType="VARCHAR" property="openid2" />
-    <result column="companyId" jdbcType="VARCHAR" property="companyId" />
-    <association column="companyId" property="company" select="club.fangqcloud.mapper.CompanyMapper.selectByPrimaryKey">
+    <result column="policyId" jdbcType="VARCHAR" property="policyId" />
+    <!--<result column="companyId" jdbcType="VARCHAR" property="companyId" />-->
+    <!--<association column="companyId" property="company" select="club.fangqcloud.mapper.CompanyMapper.selectByPrimaryKey">-->
 
-    </association>
+    <!--</association>-->
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from task
@@ -25,23 +26,18 @@
     insert into task (taskId, content, taskState, 
       description, comments, taskDate, 
       star, openid, openid1, 
-      openid2)
+      openid2,policyId)
     values (#{taskId,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{taskState,jdbcType=VARCHAR}, 
       #{description,jdbcType=VARCHAR}, #{comments,jdbcType=VARCHAR}, #{taskDate,jdbcType=TIMESTAMP}, 
       #{star,jdbcType=INTEGER}, #{openid,jdbcType=VARCHAR}, #{openid1,jdbcType=VARCHAR}, 
-      #{openid2,jdbcType=VARCHAR})
+      #{openid2,jdbcType=VARCHAR},#{policyId,jdbcType=VARCHAR})
   </insert>
   <update id="updateByPrimaryKey" parameterType="club.fangqcloud.pojo.Task">
     update task
-    set content = #{content,jdbcType=VARCHAR},
+    set
       taskState = #{taskState,jdbcType=VARCHAR},
-      description = #{description,jdbcType=VARCHAR},
       comments = #{comments,jdbcType=VARCHAR},
-      taskDate = #{taskDate,jdbcType=TIMESTAMP},
-      star = #{star,jdbcType=INTEGER},
-      openid = #{openid,jdbcType=VARCHAR},
-      openid1 = #{openid1,jdbcType=VARCHAR},
-      openid2 = #{openid2,jdbcType=VARCHAR}
+      star = #{star,jdbcType=INTEGER}
     where taskId = #{taskId,jdbcType=VARCHAR}
   </update>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
@@ -61,7 +57,7 @@
   <select id="selectList" resultType="Map">
     select taskId,content, taskState, description,taskDate,name,avatarUrl,address
     from task,insured
-    where task.openid = insured.openid
+    where task.openid = insured.openid and taskState='约单'
   </select>
   <select id="selectLastPrimaryKey" parameterType="String" resultType="String">
     SELECT taskId FROM task
@@ -69,7 +65,7 @@
     ORDER BY taskId DESC LIMIT 1
   </select>
   <select id="selectListByOpenid" parameterType="String" resultType="Map">
-    select taskId,content,taskDate,taskState,name,companyId
+    select taskId,content,taskDate,taskState,name,star,comments
     from task,person
     where task.openid = person.openid and task.openid=#{openid}
   </select>
@@ -78,4 +74,11 @@
     <!--from task,worker-->
     <!--where taskState='已评价' and (task.openid = #{openid} or task.openid2 = #{openid})-->
   <!--</select>-->
+
+  <update id="updateState" parameterType="club.fangqcloud.pojo.Task">
+      update task set
+      taskState = #{taskState,jdbcType=VARCHAR},
+      openid2 = #{openid2,jdbcType=VARCHAR}
+    where taskId = #{taskId,jdbcType=VARCHAR}
+  </update>
 </mapper>

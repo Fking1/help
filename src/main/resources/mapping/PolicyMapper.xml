@@ -65,4 +65,9 @@
     FROM policy,company
     WHERE policy.`companyId`=company.`companyId` and companyType = '保险公司' and policy.openid2 = #{openid}
   </select>
+
+  <select id="selectEffectByOpenid" parameterType="String" resultType="club.fangqcloud.pojo.Policy">
+    select * from policy
+    where policyState = '有效'
+  </select>
 </mapper>

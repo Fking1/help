@@ -20,4 +20,7 @@ public interface PolicyMapper {
     
 //    新增接口
     List<Map> selectListByOpenid(String openid);
+    
+//    查询用户有效的保单
+    List<Policy> selectEffectByOpenid(String openid);
 }

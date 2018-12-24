@@ -14,5 +14,8 @@ public interface TaskService {
     
     String choiceLastPrimaryKey();
     
-//    Boolean changeByPrimaryKey(Task task);
+    Boolean  changeState(Task task);
+    
+    Boolean changeByPrimaryKey(Task task);
+    
 }
