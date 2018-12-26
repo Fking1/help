@@ -8,7 +8,6 @@ public class Worker extends Person{
 
     private Integer wholeServiceHours;
     
-   
 
     public String getServiceState() {
         return serviceState;
@@ -34,4 +33,12 @@ public class Worker extends Person{
         this.wholeServiceHours = wholeServiceHours;
     }
     
+    @Override
+    public String toString() {
+        return "Worker{" +
+                "serviceState='" + serviceState + '\'' +
+                ", monthServiceHours=" + monthServiceHours +
+                ", wholeServiceHours=" + wholeServiceHours +
+                '}';
+    }
 }

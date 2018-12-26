@@ -12,4 +12,11 @@ public class Insured extends Person{
     public void setPolicyList(List<Policy> policyList) {
         this.policyList = policyList;
     }
+    
+    @Override
+    public String toString() {
+        return "Insured{" +
+                "policyList=" + policyList +
+                '}';
+    }
 }

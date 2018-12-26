@@ -15,13 +15,14 @@
     <result column="serviceState" jdbcType="VARCHAR" property="serviceState" />
     <result column="monthServiceHours" jdbcType="INTEGER" property="monthServiceHours" />
     <result column="wholeServiceHours" jdbcType="INTEGER" property="wholeServiceHours" />
+    <collection property="taskList" column="openid" select="club.fangqcloud.mapper.TaskMapper.selectListByOpenid"></collection>
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from worker
     where openid = #{openid,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="club.fangqcloud.pojo.Worker">
-    insert into worker (openid, id, "name", 
+      replace into worker (openid, id, name,
       sex, code, telephone, 
       address, healthState, serviceState, 
       personType, monthServiceHours, wholeServiceHours, 

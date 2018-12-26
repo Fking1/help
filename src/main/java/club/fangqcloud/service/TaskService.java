@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface TaskService {
-    List<Map> choiceList();
+    List<Map> choiceList(String state);
     
     List<Map> choiceListByOpenid(String openid);
     
@@ -14,7 +14,7 @@ public interface TaskService {
     
     String choiceLastPrimaryKey();
     
-    Boolean  changeState(Task task);
+    Boolean changeState(Task task);
     
     Boolean changeByPrimaryKey(Task task);
     

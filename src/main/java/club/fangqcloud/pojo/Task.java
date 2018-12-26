@@ -25,8 +25,6 @@ public class Task {
     
     private String policyId;
     
-//    private Company company;
-
     public String getTaskId() {
         return taskId;
     }
@@ -106,23 +104,6 @@ public class Task {
     public void setOpenid2(String openid2) {
         this.openid2 = openid2;
     }
-//
-//    public String getCompanyId() {
-//        return companyId;
-//    }
-//
-//    public void setCompanyId(String companyId) {
-//        this.companyId = companyId;
-//    }
-//
-//    public Company getCompany() {
-//        return company;
-//    }
-//
-//    public void setCompany(Company company) {
-//        this.company = company;
-//    }
-    
     
     public String getPolicyId() {
         return policyId;

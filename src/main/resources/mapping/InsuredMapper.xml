@@ -14,13 +14,15 @@
     <result column="personType" jdbcType="VARCHAR" property="personType" />
 
     <collection column="openid" property="policyList" select="club.fangqcloud.mapper.PolicyMapper.selectListByOpenid"></collection>
+    <collection property="taskList" column="openid" select="club.fangqcloud.mapper.TaskMapper.selectListByOpenid">
+    </collection>
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from insured
     where openid = #{openid,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="club.fangqcloud.pojo.Insured">
-    insert into insured (openid, id, "name", 
+      replace into insured (openid, id, name,
       sex, code, telephone, 
       address, healthState, avatarUrl, 
       personType)
@@ -44,8 +46,7 @@
   </update>
 
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select openid, id, "name", sex, code, telephone, address, healthState, avatarUrl, 
-    personType
+    select openid, id, name, sex, code, telephone, address, healthState, avatarUrl,personType
     from insured
     where openid = #{openid,jdbcType=VARCHAR}
   </select>

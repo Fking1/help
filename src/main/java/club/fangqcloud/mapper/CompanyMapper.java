@@ -4,6 +4,7 @@ import club.fangqcloud.pojo.Company;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+
 @Repository
 public interface CompanyMapper {
     int deleteByPrimaryKey(String companyId);

@@ -24,8 +24,8 @@ public class TaskServiceImpl implements TaskService {
     private InsuredMapper insuredMapper;
     
     @Override
-    public List<Map> choiceList() {
-        return taskMapper.selectList();
+    public List<Map> choiceList(String state) {
+        return taskMapper.selectList(state);
     }
     
     @Override

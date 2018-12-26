@@ -2,6 +2,7 @@ package club.fangqcloud.impl;
 
 import club.fangqcloud.mapper.InsuredMapper;
 import club.fangqcloud.pojo.Insured;
+import club.fangqcloud.pojo.Person;
 import club.fangqcloud.service.InsuredService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,4 +19,13 @@ public class InsuredServiceImpl implements InsuredService {
     public Insured choiceByPrimaryKey(String openid) {
         return insuredMapper.selectByPrimaryKey(openid);
     }
+    
+    @Override
+    public Boolean create(Insured insured) {
+        if(insuredMapper.insert(insured)>0)
+            return true;
+        else return false;
+    }
+    
+    
 }

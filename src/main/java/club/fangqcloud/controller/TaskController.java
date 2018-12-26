@@ -20,8 +20,8 @@ public class TaskController {
     
     @RequestMapping("/getTaskList.do")
     @ResponseBody
-    public List<Map> getTaskList(){
-        return taskService.choiceList();
+    public List<Map> getTaskList(String state){
+        return taskService.choiceList(state);
     }
     
     @RequestMapping("/getTaskListByOpenid.do")

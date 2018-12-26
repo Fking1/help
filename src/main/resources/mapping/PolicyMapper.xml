@@ -68,6 +68,6 @@
 
   <select id="selectEffectByOpenid" parameterType="String" resultType="club.fangqcloud.pojo.Policy">
     select * from policy
-    where policyState = '有效'
+    where policyState = '有效' and policy.openid2=#{openid}
   </select>
 </mapper>
