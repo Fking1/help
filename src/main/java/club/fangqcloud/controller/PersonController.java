@@ -34,10 +34,12 @@ public class PersonController {
         Insured insured = insuredService.choiceByPrimaryKey(openid);
         Worker worker = workerService.choiceByPrimaryKey(openid);
     
-        if(insured!=null)
+        if(insured != null)
             return insured;
-        else
+        else if(worker != null)
             return worker;
+        else
+            return null;
     }
     
     /**
