@@ -103,4 +103,14 @@ public class TaskServiceImpl implements TaskService {
             return false;
         }
     }
+
+    @Override
+    public List<Task> choiceAll() {
+        return taskMapper.selectAll();
+    }
+
+    @Override
+    public List<Task> selectByName(String name){
+        return taskMapper.selectByName(name);
+    }
 }

@@ -47,4 +47,16 @@ public class TaskController {
     public Boolean alterTask(Task task){
         return taskService.changeByPrimaryKey(task);
     }
+
+    @RequestMapping("/getAll.do")
+    @ResponseBody
+    public List<Task> getAll(){
+        return taskService.choiceAll();
+    }
+
+    @RequestMapping("/getByName.do")
+    @ResponseBody
+    public List<Task> getByName(String name){
+        return taskService.selectByName(name);
+    }
 }

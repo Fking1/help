@@ -10,7 +10,8 @@
     <result column="logo" jdbcType="VARCHAR" property="logo" />
     <result column="companyType" jdbcType="VARCHAR" property="companyType" />
   </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+
+  <delete id="delete" parameterType="java.lang.String">
     delete from company
     where companyId = #{companyId,jdbcType=VARCHAR}
   </delete>

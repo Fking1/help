@@ -17,5 +17,9 @@ public interface TaskService {
     Boolean changeState(Task task);
     
     Boolean changeByPrimaryKey(Task task);
+
+    List<Task> choiceAll();
+
+    List<Task> selectByName(String name);
     
 }

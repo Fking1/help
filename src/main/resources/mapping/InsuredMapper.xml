@@ -14,8 +14,7 @@
     <result column="personType" jdbcType="VARCHAR" property="personType" />
 
     <collection column="openid" property="policyList" select="club.fangqcloud.mapper.PolicyMapper.selectListByOpenid"></collection>
-    <collection property="taskList" column="openid" select="club.fangqcloud.mapper.TaskMapper.selectListByOpenid">
-    </collection>
+    <collection property="taskList" column="openid" select="club.fangqcloud.mapper.TaskMapper.selectListByOpenid"></collection>
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from insured

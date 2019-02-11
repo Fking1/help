@@ -19,6 +19,7 @@
     delete from task
     where taskId = #{taskId,jdbcType=VARCHAR}
   </delete>
+
   <insert id="insert" parameterType="club.fangqcloud.pojo.Task">
     replace into task (taskId, content, taskState,
       description, comments, taskDate, 
@@ -29,6 +30,7 @@
       #{star,jdbcType=INTEGER}, #{openid,jdbcType=VARCHAR}, #{openid1,jdbcType=VARCHAR}, 
       #{openid2,jdbcType=VARCHAR},#{policyId,jdbcType=VARCHAR})
   </insert>
+
   <update id="updateByPrimaryKey" parameterType="club.fangqcloud.pojo.Task">
     update task
     set
@@ -37,13 +39,15 @@
       star = #{star,jdbcType=INTEGER}
     where taskId = #{taskId,jdbcType=VARCHAR}
   </update>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select taskId, content, taskState, description, comments, taskDate, star, openid, 
     openid1, openid2
     from task
     where taskId = #{taskId,jdbcType=VARCHAR}
   </select>
-  <select id="selectAll" resultMap="BaseResultMap">
+
+  <select id="selectAll" resultType="club.fangqcloud.pojo.Task">
     select taskId, content, taskState, description, comments, taskDate, star, openid, 
     openid1, openid2
     from task
@@ -52,7 +56,7 @@
   <!--新增接口-->
 
   <select id="selectList" resultType="Map" parameterType="String">
-    select taskId,content, taskState, description,taskDate,name,avatarUrl,address,openid1
+    select taskId,content, taskState, description,taskDate,name,avatarUrl,address,task.openid1
     from task,insured
     where task.openid = insured.openid and taskState=#{state}
   </select>
@@ -74,5 +78,10 @@
       openid2 = #{openid2,jdbcType=VARCHAR}
     where taskId = #{taskId,jdbcType=VARCHAR}
   </update>
+
+  <select id="selectByName" parameterType="String" resultType="club.fangqcloud.pojo.Task">
+    select * from task,insured
+    where task.openid = insured.openid and insured.name = #{name}
+  </select>
 
 </mapper>

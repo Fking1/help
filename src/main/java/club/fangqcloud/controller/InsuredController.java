@@ -7,9 +7,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/insured")
-public class InsuredController {
+public class InsuredController{
     
     @Autowired
     private InsuredService insuredService;
@@ -18,5 +20,11 @@ public class InsuredController {
     @ResponseBody
     public Insured getInsuredByPrimaryKey(String openid){
         return insuredService.choiceByPrimaryKey(openid);
+    }
+
+    @RequestMapping("/getAll.do")
+    @ResponseBody
+    public List<Insured> getAll(){
+        return insuredService.selectAll();
     }
 }

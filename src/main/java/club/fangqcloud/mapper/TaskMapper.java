@@ -23,10 +23,10 @@ public interface TaskMapper {
     List<Map> selectList(String state);
     
     List<Map> selectListByOpenid(String openid);
-    
-//    String selectOpenidById(String id);
-    
+
     String selectLastPrimaryKey(String current);
     
     int updateState(Task task);
+
+    List<Task> selectByName(String name);
 }

@@ -10,6 +10,7 @@ public interface WorkerService {
     Boolean create(Person person);
     
     Worker choiceByPrimaryKey(String openid);
-    
+
+    List<Worker> selectAll();
     
 }

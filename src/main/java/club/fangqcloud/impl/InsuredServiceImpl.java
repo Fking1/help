@@ -2,11 +2,12 @@ package club.fangqcloud.impl;
 
 import club.fangqcloud.mapper.InsuredMapper;
 import club.fangqcloud.pojo.Insured;
-import club.fangqcloud.pojo.Person;
 import club.fangqcloud.service.InsuredService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @Transactional
@@ -26,6 +27,9 @@ public class InsuredServiceImpl implements InsuredService {
             return true;
         else return false;
     }
-    
-    
+
+    @Override
+    public List<Insured> selectAll() {
+        return insuredMapper.selectAll();
+    }
 }

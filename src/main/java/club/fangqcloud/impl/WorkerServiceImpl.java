@@ -28,4 +28,9 @@ public class WorkerServiceImpl implements WorkerService {
     public Worker choiceByPrimaryKey(String openid) {
         return workerMapper.selectByPrimaryKey(openid);
     }
+
+    @Override
+    public List<Worker> selectAll() {
+        return workerMapper.selectAll();
+    }
 }
