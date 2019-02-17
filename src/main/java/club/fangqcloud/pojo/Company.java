@@ -70,4 +70,17 @@ public class Company {
     public void setCompanyType(String companyType) {
         this.companyType = companyType;
     }
+
+    @Override
+    public String toString() {
+        return "Company{" +
+                "companyId='" + companyId + '\'' +
+                ", companyName='" + companyName + '\'' +
+                ", contactName='" + contactName + '\'' +
+                ", telephone='" + telephone + '\'' +
+                ", companyAddress='" + companyAddress + '\'' +
+                ", logo='" + logo + '\'' +
+                ", companyType='" + companyType + '\'' +
+                '}';
+    }
 }

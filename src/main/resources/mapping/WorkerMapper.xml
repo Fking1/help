@@ -17,7 +17,7 @@
     <result column="wholeServiceHours" jdbcType="INTEGER" property="wholeServiceHours" />
     <collection property="taskList" column="openid" select="club.fangqcloud.mapper.TaskMapper.selectListByOpenid"></collection>
   </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+  <delete id="delete" parameterType="java.lang.String">
     delete from worker
     where openid = #{openid,jdbcType=VARCHAR}
   </delete>
@@ -25,28 +25,49 @@
       replace into worker (openid, id, name,
       sex, code, telephone, 
       address, healthState, serviceState, 
-      personType, monthServiceHours, wholeServiceHours, 
-      avatarUrl)
+      personType,avatarUrl)
     values (#{openid,jdbcType=VARCHAR}, #{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
       #{sex,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, #{telephone,jdbcType=VARCHAR}, 
       #{address,jdbcType=VARCHAR}, #{healthState,jdbcType=VARCHAR}, #{serviceState,jdbcType=VARCHAR}, 
-      #{personType,jdbcType=VARCHAR}, #{monthServiceHours,jdbcType=INTEGER}, #{wholeServiceHours,jdbcType=INTEGER}, 
-      #{avatarUrl,jdbcType=VARCHAR})
+      #{personType,jdbcType=VARCHAR}, #{avatarUrl,jdbcType=VARCHAR})
   </insert>
-  <update id="updateByPrimaryKey" parameterType="club.fangqcloud.pojo.Worker">
+  <update id="update" parameterType="club.fangqcloud.pojo.Worker">
     update worker
-    set id = #{id,jdbcType=VARCHAR},
-      "name" = #{name,jdbcType=VARCHAR},
-      sex = #{sex,jdbcType=VARCHAR},
-      code = #{code,jdbcType=VARCHAR},
-      telephone = #{telephone,jdbcType=VARCHAR},
-      address = #{address,jdbcType=VARCHAR},
-      healthState = #{healthState,jdbcType=VARCHAR},
-      serviceState = #{serviceState,jdbcType=VARCHAR},
-      personType = #{personType,jdbcType=VARCHAR},
-      monthServiceHours = #{monthServiceHours,jdbcType=INTEGER},
-      wholeServiceHours = #{wholeServiceHours,jdbcType=INTEGER},
-      avatarUrl = #{avatarUrl,jdbcType=VARCHAR}
+    <set>
+      <if test='id != null and id != "" '>
+        id = #{id,jdbcType=VARCHAR},
+      </if>
+      <if test='name != null and name != "" '>
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test='sex != null and sex != "" '>
+        sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test='code != null and code != "" '>
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test='telephone != null and telephone != "" '>
+        telephone = #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test='address != null and address != "" '>
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test='healthState != null and healthState != ""'>
+        healthState = #{healthState,jdbcType=VARCHAR},
+      </if>
+      <if test='personType != null and personType != ""'>
+        personType = #{personType,jdbcType=VARCHAR}
+      </if>
+      <if test='serviceState != null and serviceState != ""'>
+        serviceState = #{serviceState, jdbcType=VARCHAR},
+      </if>
+      <if test='monthServiceHours != null and monthServiceState != ""'>
+        monthServiceHours = #{monthServiceHours, jdbcType=INTEGER},
+      </if>
+      <if test='wholeServiceHours != null and wholeServiceHours != ""'>
+        wholeServiceHours = #{wholeServiceHours, jdbcType=INTEGER}
+      </if>
+    </set>
     where openid = #{openid,jdbcType=VARCHAR}
   </update>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
@@ -55,9 +76,14 @@
     from worker
     where openid = #{openid,jdbcType=VARCHAR}
   </select>
-  <select id="selectAll" resultMap="BaseResultMap">
-    select openid, id, "name", sex, code, telephone, address, healthState, serviceState, 
+  <select id="selectAll" resultType="club.fangqcloud.pojo.Worker">
+    select openid, id, name, sex, code, telephone, address, healthState, serviceState,
     personType, monthServiceHours, wholeServiceHours, avatarUrl
     from worker
+  </select>
+
+  <select id="selectByName" parameterType="String" resultType="club.fangqcloud.pojo.Worker">
+    select * from worker
+    where name=#{name}
   </select>
 </mapper>

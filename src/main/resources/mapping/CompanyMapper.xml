@@ -25,12 +25,26 @@
   </insert>
   <update id="updateByPrimaryKey" parameterType="club.fangqcloud.pojo.Company">
     update company
-    set companyName = #{companyName,jdbcType=VARCHAR},
-      contactName = #{contactName,jdbcType=VARCHAR},
-      telephone = #{telephone,jdbcType=VARCHAR},
-      companyAddress = #{companyAddress,jdbcType=VARCHAR},
-      logo = #{logo,jdbcType=VARCHAR},
-      companyType = #{companyType,jdbcType=VARCHAR}
+    <set>
+        <if test='companyName != null and companyName != "" '>
+            companyName = #{companyName,jdbcType=VARCHAR},
+        </if>
+        <if test='contactName != null and contactName != "" '>
+            contactName = #{contactName,jdbcType=VARCHAR},
+        </if>
+        <if test='telephone != null and telephone != "" '>
+            telephone = #{telephone,jdbcType=VARCHAR},
+        </if>
+        <if test='companyAddress != null and companyAddress != "" '>
+            companyAddress = #{companyAddress,jdbcType=VARCHAR},
+        </if>
+        <if test='logo != null and logo != "" '>
+            logo = #{logo,jdbcType=VARCHAR},
+        </if>
+        <if test='companyType != null and companyType != "" '>
+            companyType = #{companyType,jdbcType=VARCHAR}
+        </if>
+    </set>
     where companyId = #{companyId,jdbcType=VARCHAR}
   </update>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
@@ -42,4 +56,9 @@
     select companyId, companyName, contactName, telephone, companyAddress, logo, companyType
     from company
   </select>
+
+    <select id="selectByCompanyName" parameterType="String" resultType="club.fangqcloud.pojo.Company">
+        select * from company where 1=1
+        and companyName like CONCAT('%',#{companyName},'%')
+    </select>
 </mapper>

@@ -1,0 +1,201 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<!--[if lt IE 9]>
+<script type="text/javascript" src="/lib/html5shiv.js"></script>
+<script type="text/javascript" src="/lib/respond.min.js"></script>
+<![endif]-->
+<link rel="stylesheet" type="text/css" href="/admin/h-ui/css/H-ui.min.css" />
+<link rel="stylesheet" type="text/css" href="/admin/h-ui.admin/css/H-ui.admin.css" />
+<link rel="stylesheet" type="text/css" href="/lib/Hui-iconfont/1.0.8/iconfont.css" />
+<link rel="stylesheet" type="text/css" href="/admin/h-ui.admin/skin/default/skin.css" id="skin" />
+<link rel="stylesheet" type="text/css" href="/admin/h-ui.admin/css/style.css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="/lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<title>工作人员管理</title>
+	<style>
+		.table td{
+			text-align: center;
+		}
+	</style>
+</head>
+<body>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 人员管理 <span class="c-gray en">&gt;</span> 工作人员管理 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<div class="page-container" id="app">
+	<div class="text-c">
+		<input type="text" placeholder="分类名称" value="" class="input-text" style="width:250px" v-model="pageInfo.name">
+		<button class="btn btn-success" type="button" @Click="searchByName"><i class="Hui-iconfont">&#xe665;</i> 搜人员</button>
+	</div>
+	<div class="cl pd-5 bg-1 bk-gray mt-20">
+		<span class="l">
+			<a href="javascript:;" onclick="datadel()" class="btn btn-danger radius">
+				<i class="Hui-iconfont">&#xe6e2;</i> 批量删除
+			</a>
+			<a class="btn btn-primary radius" onclick="worker_add('添加人员','worker-add.html')" href="javascript:;">
+                <i class="Hui-iconfont">&#xe600;</i> 添加人员
+            </a>
+		</span>
+		<span class="r">共有数据：<strong>{{pageInfo.total}}</strong> 条</span> </div>
+	<div class="mt-20">
+		<table class="table table-border table-bordered table-bg table-sort">
+			<thead>
+				<tr class="text-c">
+					<th width="25"><input type="checkbox" name="" value=""></th>
+					<th width="60">头像</th>
+					<th width="80">id</th>
+					<th width="40">姓名</th>
+					<th width="40">性别</th>
+					<th width="50">邮政编码</th>
+					<th width="60">电话号码</th>
+					<th width="80">地址</th>
+					<th width="40">健康状况</th>
+					<th width="40">服务状态</th>
+					<th width="40">月服务时长</th>
+					<th width="40">总服务时长</th>
+					<th width="40">人员类型</th>
+					<th width="100">操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr v-for="(item,index) in pageInfo.list">
+					<td width="25"><input type="checkbox" name="" value=""></td>
+					<td width="60">{{item.id}}</td>
+					<td width="80"><img :src="item.avatarUrl" width="100" height="80"></img></td>
+					<td width="40">{{item.name}}</td>
+					<td width="40">{{item.sex}}</td>
+					<td width="50">{{item.code}}</td>
+					<td width="60">{{item.telephone}}</td>
+					<td width="80">{{item.address}}</td>
+					<td width="40">{{item.healthState}}</td>
+					<td width="40">{{item.serviceState}}</td>
+					<td width="40">{{item.monthServiceHours}}</td>
+					<td width="40">{{item.wholeServiceHours}}</td>
+					<td width="40">{{item.personType}}</td>
+					<td width="100">
+						<a @Click="delete_worker(item.openid,index)">删除</a>
+						<a @Click="modify(item.openid)">修改</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<div style="margin: 30px auto; width: 130px;">
+			<button @Click="previous" style="height: 30px;line-height: 30px;width: 60px;">上一页</button>
+			<button @Click="next" style="height: 30px;line-height: 30px;width: 60px;">下一页</button>
+		</div>
+	</div>
+</div>
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="/lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="/lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="/admin//h-ui/js/H-ui.min.js"></script>
+<script type="text/javascript" src="/admin/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="/lib/laypage/1.2/laypage.js"></script>
+<script src="/js/vue.js"></script>
+<script type="text/javascript">
+    var app = new Vue({
+        el: '#app',
+        data:{
+            pageInfo: {
+                pageNum: 1,
+				pageSize: 3
+			}
+        },
+        created: function(){
+            this.getList()
+        },
+		methods:{
+            getList: function(){
+                $.ajax({
+                    url:'/worker/getAll.do',
+                    data:{
+                        pageNum: this.pageInfo.pageNum,
+                        pageSize: this.pageInfo.pageSize
+                    },
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (res) {
+                        console.log(res)
+                        app.pageInfo = res
+                    },
+                    error: function(error){
+                        console.log("error:"+error)
+                    }
+                })
+			},
+            previous: function(){
+                if(!this.pageInfo.isFirstPage)
+                    this.pageInfo.pageNum = this.pageInfo.prePage
+                this.getList()
+            },
+            next: function () {
+                if(!this.pageInfo.isLastPage)
+                    this.pageInfo.pageNum = this.pageInfo.nextPage;
+                this.getList()
+            },
+            delete_worker: function (openid,index) {
+                $.ajax({
+                    url: '/worker/remove.do',
+                    data:{
+                        openid: openid
+                    },
+                    type: 'DELETE',
+                    dataType: 'json',
+                    success: function (res) {
+                        if(res){
+                            app.pageInfo.list.splice(index,1)
+                            alert("已删除")
+                        }
+                    },
+                    error: function (error) {
+                        console.log(error)
+                    }
+                })
+            },
+            searchByName: function () {
+                $.ajax({
+                    url: '/worker/getByName.do?name='+app.pageInfo.name,
+                    data:{
+                        pageNum: this.pageInfo.pageNum,
+                        pageSize: this.pageInfo.pageSize
+                    },
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (res) {
+                        app.pageInfo.name = ""
+                        console.log(res)
+                        app.pageInfo = res
+                    },
+                    error: function (error) {
+                        console.log(error)
+                    }
+                })
+            },
+            modify: function(openid){
+                window.location.href = "/worker-modify.html?openid="+openid
+            },
+		}
+    })
+
+    function worker_add(title,url,w,h){
+        var index = layer.open({
+            type: 2,
+            title: title,
+            content: url
+        });
+        layer.full(index);
+    }
+
+</script>
+</body>
+</html>

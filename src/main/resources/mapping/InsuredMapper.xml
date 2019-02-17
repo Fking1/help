@@ -14,7 +14,7 @@
     <result column="personType" jdbcType="VARCHAR" property="personType" />
 
     <collection column="openid" property="policyList" select="club.fangqcloud.mapper.PolicyMapper.selectListByOpenid"></collection>
-    <collection property="taskList" column="openid" select="club.fangqcloud.mapper.TaskMapper.selectListByOpenid"></collection>
+    <collection column="openid" property="taskList" select="club.fangqcloud.mapper.TaskMapper.selectListByOpenid"></collection>
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from insured
@@ -32,15 +32,32 @@
   </insert>
   <update id="updateByPrimaryKey" parameterType="club.fangqcloud.pojo.Insured">
     update insured
-    set id = #{id,jdbcType=VARCHAR},
-      "name" = #{name,jdbcType=VARCHAR},
-      sex = #{sex,jdbcType=VARCHAR},
-      code = #{code,jdbcType=VARCHAR},
-      telephone = #{telephone,jdbcType=VARCHAR},
-      address = #{address,jdbcType=VARCHAR},
-      healthState = #{healthState,jdbcType=VARCHAR},
-      avatarUrl = #{avatarUrl,jdbcType=VARCHAR},
-      personType = #{personType,jdbcType=VARCHAR}
+    <set>
+      <if test='id != null and id != "" '>
+        id = #{id,jdbcType=VARCHAR},
+      </if>
+      <if test='name != null and name != "" '>
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test='sex != null and sex != "" '>
+        sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test='code != null and code != "" '>
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test='telephone != null and telephone != "" '>
+        telephone = #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test='address != null and address != "" '>
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test='healthState != null and healthState != ""'>
+        healthState = #{healthState,jdbcType=VARCHAR},
+      </if>
+      <if test='personType != null and personType != ""'>
+        personType = #{personType,jdbcType=VARCHAR}
+      </if>
+    </set>
     where openid = #{openid,jdbcType=VARCHAR}
   </update>
 
@@ -50,7 +67,7 @@
     where openid = #{openid,jdbcType=VARCHAR}
   </select>
   <select id="selectAll" resultMap="BaseResultMap">
-    select openid, id, "name", sex, code, telephone, address, healthState, avatarUrl, 
+    select openid, id, name, sex, code, telephone, address, healthState, avatarUrl,
     personType
     from insured
   </select>
@@ -58,5 +75,10 @@
     select openid
     from insured
     where id=#{id}
+  </select>
+
+  <select id="selectByName" parameterType="String" resultType="club.fangqcloud.pojo.Insured">
+    select * from insured
+    where name=#{name}
   </select>
 </mapper>

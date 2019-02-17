@@ -1,6 +1,7 @@
 package club.fangqcloud.mapper;
 
 import club.fangqcloud.pojo.Insured;
+import com.github.pagehelper.Page;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -13,11 +14,14 @@ public interface InsuredMapper {
 
     Insured selectByPrimaryKey(String openid);
 
-    List<Insured> selectAll();
 
     int updateByPrimaryKey(Insured record);
     
     //新增接口
     
     String selectOpenidById(String id);
+
+    Page<Insured> selectAll();
+
+    Page<Insured> selectByName(String name);
 }

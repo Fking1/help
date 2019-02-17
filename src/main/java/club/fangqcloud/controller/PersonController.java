@@ -28,9 +28,9 @@ public class PersonController {
     @Autowired
     private WorkerService workerService;
     
-    @RequestMapping("/getPersonByPrimaryKey.do")
+    @RequestMapping("/getByPrimaryKey.do")
     @ResponseBody
-    public Person getPersonByPrimaryKey(String openid){
+    public Person getByPrimaryKey(String openid){
         Insured insured = insuredService.choiceByPrimaryKey(openid);
         Worker worker = workerService.choiceByPrimaryKey(openid);
     
@@ -56,12 +56,35 @@ public class PersonController {
         
         File dest = new File(System.getProperty("user.dir")+"/upload/"+filename);
         file.transferTo(dest);
-        person.setAvatarUrl("http://120.79.227.155:8080/help/"+filename);
-        if(person.getPersonType()=="投保人" || person.getPersonType()=="被保人"){
-            return insuredService.create((Insured)person);
+
+        if(person.getPersonType().equals("投保人") || person.getPersonType().equals("被保人")){
+            Insured insured = new Insured();
+            insured.setOpenid(person.getOpenid());
+            insured.setId(person.getId());
+            insured.setName(person.getName());
+            insured.setSex(person.getSex());
+            insured.setAddress(person.getAddress());
+            insured.setHealthState(person.getHealthState());
+            insured.setCode(person.getCode());
+            insured.setTelephone(person.getTelephone());
+            insured.setAvatarUrl("http://120.79.227.155:8080/"+filename);
+            insured.setPersonType(person.getPersonType());
+            return insuredService.create(insured);
         }
         else{
-            return workerService.create((Worker)person);
+            Worker worker = new Worker();
+            worker.setOpenid(person.getOpenid());
+            worker.setId(person.getId());
+            worker.setName(person.getName());
+            worker.setSex(person.getSex());
+            worker.setAddress(person.getAddress());
+            worker.setHealthState(person.getHealthState());
+            worker.setCode(person.getCode());
+            worker.setTelephone(person.getTelephone());
+            worker.setAvatarUrl("http://120.79.227.155:8080/"+filename);
+            worker.setServiceState("空闲");
+            worker.setPersonType(person.getPersonType());
+            return workerService.create(worker);
         }
     }
     

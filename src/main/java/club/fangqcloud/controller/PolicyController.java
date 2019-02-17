@@ -20,4 +20,6 @@ public class PolicyController {
     List<Policy> getEffectPolicyByOpenid(String openid){
         return policyService.choiceEffectByOpenid(openid);
     }
+
+
 }

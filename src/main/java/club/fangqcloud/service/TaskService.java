@@ -1,6 +1,7 @@
 package club.fangqcloud.service;
 
 import club.fangqcloud.pojo.Task;
+import com.github.pagehelper.Page;
 
 import java.util.List;
 import java.util.Map;
@@ -10,16 +11,20 @@ public interface TaskService {
     
     List<Map> choiceListByOpenid(String openid);
     
-    Boolean create(Map<String,String> taskInfo);
+    Boolean add(Map<String,String> taskInfo);
     
     String choiceLastPrimaryKey();
     
     Boolean changeState(Task task);
     
-    Boolean changeByPrimaryKey(Task task);
+    Boolean changeByPrimaryKey(Task taskInfo);
 
-    List<Task> choiceAll();
+    Page<Task> choiceAll();
 
-    List<Task> selectByName(String name);
+    Page<Task> selectByTaskId(String taskId);
+
+    Boolean insert(Task task);
+
+    Boolean delete(String taskId);
     
 }

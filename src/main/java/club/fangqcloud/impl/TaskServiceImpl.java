@@ -5,6 +5,7 @@ import club.fangqcloud.mapper.TaskMapper;
 import club.fangqcloud.pojo.Task;
 import club.fangqcloud.service.TaskService;
 import club.fangqcloud.tools.PrimaryGenerater;
+import com.github.pagehelper.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,8 +25,8 @@ public class TaskServiceImpl implements TaskService {
     private InsuredMapper insuredMapper;
     
     @Override
-    public List<Map> choiceList(String state) {
-        return taskMapper.selectList(state);
+    public List<Map> choiceList(String taskState) {
+        return taskMapper.selectList(taskState);
     }
     
     @Override
@@ -34,7 +35,7 @@ public class TaskServiceImpl implements TaskService {
     }
     
     @Override
-    public Boolean create(Map<String,String> taskInfo) {
+    public Boolean add(Map<String,String> taskInfo) {
         Task task = new Task();
         PrimaryGenerater primaryGenerater = PrimaryGenerater.getInstance();
         String taskId = primaryGenerater.generaterNextNumber(choiceLastPrimaryKey());
@@ -48,9 +49,22 @@ public class TaskServiceImpl implements TaskService {
             task.setOpenid(taskInfo.get("openid"));
             task.setTaskState("约单");
             task.setPolicyId(taskInfo.get("policyId"));
-            task.setOpenid2(null);
-            task.setComments(null);
+            if(taskInfo.get("openid2")!=null && taskInfo.get("openid2")!=""){
+                task.setOpenid2(taskInfo.get("openid2"));
+            }
+            else{
+                task.setOpenid2(null);
+            }
+
+            if(taskInfo.get("comments")!=null && taskInfo.get("comments")!=""){
+                task.setComments(taskInfo.get("comments"));
+            }
+            else{
+                task.setComments(null);
+            }
+
             task.setStar(null);
+
 
             SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd");
             try {
@@ -105,12 +119,31 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public List<Task> choiceAll() {
+    public Page<Task> choiceAll() {
         return taskMapper.selectAll();
     }
 
     @Override
-    public List<Task> selectByName(String name){
-        return taskMapper.selectByName(name);
+    public Page<Task> selectByTaskId(String taskId){
+        return taskMapper.selectByTaskId(taskId);
+    }
+
+    @Override
+    public Boolean insert(Task task){
+        PrimaryGenerater primaryGenerater = PrimaryGenerater.getInstance();
+        String taskId = primaryGenerater.generaterNextNumber(choiceLastPrimaryKey());
+        task.setTaskId(taskId);
+        if(taskMapper.insert(task)>0)
+            return true;
+        else
+            return false;
+    }
+
+    @Override
+    public Boolean delete(String taskId) {
+        if(taskMapper.delete(taskId)>0)
+            return true;
+        else
+            return false;
     }
 }

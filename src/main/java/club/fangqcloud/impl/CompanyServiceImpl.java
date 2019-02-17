@@ -3,6 +3,7 @@ package club.fangqcloud.impl;
 import club.fangqcloud.mapper.CompanyMapper;
 import club.fangqcloud.pojo.Company;
 import club.fangqcloud.service.CompanyService;
+import com.github.pagehelper.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +28,7 @@ public class CompanyServiceImpl implements CompanyService {
 
 
     @Override
-    public List<Company> choiceAll() {
+    public Page<Company> choiceAll() {
         return companyMapper.selectAll();
     }
 
@@ -51,5 +52,10 @@ public class CompanyServiceImpl implements CompanyService {
         else{
             return false;
         }
+    }
+
+    @Override
+    public Page selectByCompanyName(String companyName) {
+        return companyMapper.selectByCompanyName(companyName);
     }
 }

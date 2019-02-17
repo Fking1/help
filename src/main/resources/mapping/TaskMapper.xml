@@ -15,7 +15,7 @@
     <result column="policyId" jdbcType="VARCHAR" property="policyId" />
   </resultMap>
 
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+  <delete id="delete" parameterType="java.lang.String">
     delete from task
     where taskId = #{taskId,jdbcType=VARCHAR}
   </delete>
@@ -33,14 +33,27 @@
 
   <update id="updateByPrimaryKey" parameterType="club.fangqcloud.pojo.Task">
     update task
-    set
-      taskState = #{taskState,jdbcType=VARCHAR},
-      comments = #{comments,jdbcType=VARCHAR},
-      star = #{star,jdbcType=INTEGER}
+    <set>
+      <if test='content != null and content != "" '>
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test='description != null and description != "" '>
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test='taskState != null and taskState != "" '>
+        taskState = #{taskState,jdbcType=VARCHAR},
+      </if>
+      <if test='comments != null and comments != "" '>
+        comments = #{comments,jdbcType=VARCHAR},
+      </if>
+      <if test='star != null and star != "" '>
+        star = #{star,jdbcType=VARCHAR},
+      </if>
+    </set>
     where taskId = #{taskId,jdbcType=VARCHAR}
   </update>
 
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+  <select id="selectByTaskId" parameterType="java.lang.String" resultMap="BaseResultMap">
     select taskId, content, taskState, description, comments, taskDate, star, openid, 
     openid1, openid2
     from task
@@ -56,10 +69,11 @@
   <!--新增接口-->
 
   <select id="selectList" resultType="Map" parameterType="String">
-    select taskId,content, taskState, description,taskDate,name,avatarUrl,address,task.openid1
+    select taskId,content,taskState,description,taskDate,name,avatarUrl,address,task.openid,task.openid1
     from task,insured
-    where task.openid = insured.openid and taskState=#{state}
+    where task.openid = insured.openid and taskState=#{taskState}
   </select>
+
   <select id="selectLastPrimaryKey" parameterType="String" resultType="String">
     SELECT taskId FROM task
     WHERE taskId LIKE #{current}
@@ -67,21 +81,16 @@
   </select>
 
   <select id="selectListByOpenid" parameterType="String" resultType="Map">
-    select taskId,content,taskDate,taskState,star,comments,insured.name as name1
-    from task,insured,worker
-    where task.openid1=insured.openid and (task.openid=#{openid} or task.openid1=#{openid} or task.openid2=#{openid})
+    select taskId,content,taskDate,taskState,star,comments,insured.name
+    from task,insured
+    where task.openid=insured.openid and task.openid=#{openid}
   </select>
 
   <update id="updateState" parameterType="club.fangqcloud.pojo.Task">
       update task set
       taskState = #{taskState,jdbcType=VARCHAR},
       openid2 = #{openid2,jdbcType=VARCHAR}
-    where taskId = #{taskId,jdbcType=VARCHAR}
+    where taskId = #{taskId,jdbcType=VARCHAR} and openid != #{openid2} and openid1 != #{openid2}
   </update>
-
-  <select id="selectByName" parameterType="String" resultType="club.fangqcloud.pojo.Task">
-    select * from task,insured
-    where task.openid = insured.openid and insured.name = #{name}
-  </select>
 
 </mapper>

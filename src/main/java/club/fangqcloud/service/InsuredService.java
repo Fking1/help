@@ -2,6 +2,7 @@ package club.fangqcloud.service;
 
 import club.fangqcloud.pojo.Insured;
 import club.fangqcloud.pojo.Person;
+import com.github.pagehelper.Page;
 
 import java.util.List;
 
@@ -10,5 +11,11 @@ public interface InsuredService {
     
     Boolean create(Insured insured);
 
-    List<Insured> selectAll();
+    Page<Insured> selectAll();
+
+    Boolean delete(String openid);
+
+    Page<Insured> selectByName(String name);
+
+    Boolean alter(Insured insured);
 }
